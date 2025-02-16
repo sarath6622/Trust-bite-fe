@@ -1,133 +1,163 @@
-/* Container */
+/* Background with soft gradient */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
-}
+  background: linear-gradient(135deg, #1e1e2e 0%, #3a3a5e 100%);}
 
-/* Form Container */
+/* Glassmorphism card effect */
 .formContainer {
-  background: linear-gradient(135deg, #f4f4f4, #ffffff);
-  padding: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 350px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out;
 }
 
-/* Heading */
+.formContainer:hover {
+  transform: translateY(-5px);
+}
+
 .h2 {
-  margin-bottom: 1.5rem;
-  font-size: 28px;
-  font-weight: 600;
-  color: #333;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
 }
 
-/* Input Container */
-.inputContainer {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-/* Input Fields */
+/* Inputs with smooth animations */
 .input {
   width: 100%;
-  padding: 15px;
-  border: 2px solid #ccc;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
   border-radius: 10px;
   font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .input:focus {
   outline: none;
-  border-color: #0070f3;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
 }
 
 .input::placeholder {
-  color: #888;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Show Password Button */
-.showPasswordButton {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  background: none;
+/* Dropdown with similar glass effect */
+.select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
   border: none;
-  font-size: 14px;
-  color: #0070f3;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
   cursor: pointer;
+  transition: background 0.3s ease-in-out;
 }
 
-.showPasswordButton:hover {
-  text-decoration: underline;
+.select:focus {
+  background: rgba(255, 255, 255, 0.3);
 }
 
-/* Login Button */
+/* Smooth animated button */
 .button {
   width: 100%;
-  padding: 15px;
-  background-color: #0070f3;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .button:hover {
-  background-color: #005bb5;
+  background: linear-gradient(135deg, #ff6584, #ff5263);
+  transform: scale(1.05);
 }
 
-/* Error Message */
 .error {
-  color: red;
-  margin-bottom: 1.5rem;
+  color: #ff4d4d;
+  margin-bottom: 1rem;
   font-size: 14px;
 }
 
-/* Register Link */
+/* Links with smooth color transition */
 .linkText {
   margin-top: 1rem;
   font-size: 14px;
-  color: #333;
+  color: white;
 }
 
 .linkText a {
-  color: #0070f3;
+  color: #ffeb99;
   text-decoration: none;
+  transition: color 0.3s ease-in-out;
 }
 
 .linkText a:hover {
+  color: #fff;
   text-decoration: underline;
 }
 
-.quickLoginContainer {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .formContainer {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .h2 {
+    font-size: 20px;
+  }
+
+  .button {
+    font-size: 14px;
+  }
 }
 
-.quickLoginButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.2s;
+  color: white;
 }
 
-.quickLoginButton:hover {
-  background-color: #0056b3;
+.quickLoginContainer{
+  display: flex;
+  justify-content: space-around;
+}
+
+.quickLoginContainer button{
+  /* border: 1px solid white; */
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.quickLoginContainer button:hover{
+  border: 1px solid #E2E2B6;
+  color: #E2E2B6;
+  padding: 2px;
+  border-radius: 5px;
 }

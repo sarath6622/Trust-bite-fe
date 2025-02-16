@@ -1,79 +1,132 @@
+/* Background with soft gradient */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #a460ed 0%, #2575fc 100%);
+}
+
+/* Glassmorphism card effect */
+.formContainer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.formContainer:hover {
+  transform: translateY(-5px);
+}
+
+.h2 {
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Inputs with smooth animations */
+.input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dropdown with similar glass effect */
+.select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.select:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth animated button */
+.button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #ff6584, #ff5263);
+  transform: scale(1.05);
+}
+
+.error {
+  color: #ff4d4d;
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+/* Links with smooth color transition */
+.linkText {
+  margin-top: 1rem;
+  font-size: 14px;
+  color: white;
+}
+
+.linkText a {
+  color: #ffeb99;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.linkText a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
   .formContainer {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 320px;
+    width: 90%;
+    padding: 1.5rem;
   }
-  
+
   .h2 {
-    margin-bottom: 1rem;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
   }
-  
-  .input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-    background-color: #f9f9f9;
-  }
-  
-  .input:focus {
-    outline: none;
-    border-color: #0070f3;
-    background-color: #fff;
-  }
-  
-  .input::placeholder {
-    color: #888;
-  }
-  
+
   .button {
-    width: 100%;
-    padding: 12px;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .button:hover {
-    background-color: #005bb5;
-  }
-  
-  .error {
-    color: red;
-    margin-bottom: 1rem;
     font-size: 14px;
   }
-  
-  .linkText {
-    margin-top: 1rem;
-    font-size: 14px;
-  }
-  
-  .linkText a {
-    color: #0070f3;
-    text-decoration: none;
-  }
-  
-  .linkText a:hover {
-    text-decoration: underline;
-  }
+}
