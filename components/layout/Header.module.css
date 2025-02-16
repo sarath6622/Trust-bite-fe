@@ -1,0 +1,200 @@
+/* Header Styling */
+.header {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Flex Container */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Logo */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.logoText {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+/* Navigation */
+.navbar {
+  display: flex;
+}
+
+/* Desktop Navigation */
+.navList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navigation Links */
+.navList li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 15px;
+  transition: color 0.3s, border-bottom 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+/* Active Link */
+.active {
+  color: #00bcd4;
+  border-bottom: 2px solid #00bcd4;
+}
+
+/* Hover Effect */
+.navList li a:hover {
+  color: #00bcd4;
+  border-bottom: 2px solid #00bcd4;
+  transform: scale(1.05);
+
+}
+
+.navButton:hover {
+  color: #00bcd4;
+  border-bottom: 2px solid #00bcd4;
+}
+
+/* Restaurant Owner Button */
+.navButton {
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+
+/* Profile Container */
+.profileContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Profile Button */
+.profileButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.profileButton:hover {
+  transform: scale(1.1);
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.logoutButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.logoutButton:hover {
+  background-color: #cc0000;
+}
+
+/* 🎯 Mobile Menu Button */
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  transition: transform 0.3s;
+}
+
+.menuButton:hover {
+  transform: scale(1.1);
+}
+
+/* 🏗️ Responsive Design (Tablet & Mobile) */
+@media (max-width: 900px) {
+  /* Hide normal nav & show menu button */
+  .navbar {
+    display: none;
+    flex-direction: column;
+    background: #1a1a1a;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+  }
+
+  .navList {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navList li {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .menuButton {
+    display: block;
+  }
+
+  /* Show navbar when active */
+  .navbar.active {
+    display: flex;
+  }
+}

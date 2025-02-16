@@ -1,0 +1,120 @@
+.container {
+    max-width: 400px; /* Reduced width */
+    margin: 5vh auto; /* Adds some space from the top */
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Reduced spacing */
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.formGroup label {
+    font-weight: bold;
+    margin-bottom: 0.3rem; /* Less space */
+    color: #333;
+}
+
+.formGroup input,
+.formGroup textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; /* Smaller font */
+    width: 100%;
+    color: #333;
+    background-color: white;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+    color: #888;
+    font-size: 14px;
+}
+
+.formGroup textarea {
+    height: 60px; /* Smaller textarea */
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.updateButton,
+.cancelButton,
+.editButton,
+.deleteButton {
+    flex: 1;
+    margin: 0.3rem;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.updateButton {
+    background-color: #0070f3;
+    color: white;
+}
+
+.cancelButton {
+    background-color: #ccc;
+    color: black;
+}
+
+.editButton {
+    background-color: #0070f3;
+    color: white;
+}
+
+.deleteButton {
+    background-color: red;
+    color: white;
+}
+
+.updateButton:hover {
+    background-color: #005bb5;
+}
+
+.cancelButton:hover {
+    background-color: #999;
+}
+
+.editButton:hover {
+    background-color: #005bb5;
+}
+
+.deleteButton:hover {
+    background-color: darkred;
+}
+
+.error {
+    color: red;
+    margin-bottom: 1rem;
+}
+
+.success {
+    color: green;
+    margin-bottom: 1rem;
+}

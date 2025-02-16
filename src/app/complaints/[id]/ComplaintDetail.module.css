@@ -1,0 +1,356 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f5f5f5;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+  }
+  
+  .complaintInfo {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 20px auto;
+  }
+  
+  .trackerContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 30px auto;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .step {
+    text-align: center;
+    position: relative;
+    flex: 1;
+  }
+  
+  .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    margin: auto;
+  }
+
+  .line{
+    width: 150px;
+    height: 5px;
+    position: relative;
+  }
+  
+  .stepLabel {
+    font-size: 14px;
+    color: #000000;
+    margin-top: 5px;
+    border-radius: 20px;
+  }
+  
+  .active {
+    background: #0070f3 !important;
+    color: white !important;
+  }
+
+  .inactive {
+    color: rgb(85, 85, 85) !important;
+  }
+  
+  .backButton {
+    background: #0070f3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+  }
+  
+  .backButton:hover {
+    background: #005bb5;
+  }
+
+  .trackerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; /* Adjust width to fit design */
+    margin: 30px auto;
+    position: relative;
+  }
+  
+  /* Line between steps */
+  .line {
+    flex-grow: 1;
+    height: 4px;
+    background-color: #ccc;
+    position: relative;
+  }
+  
+  /* Circle for each step */
+  .circle {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+  }
+  
+  /* Active step styling */
+  .active {
+    background-color: #0070f3; /* Change to your theme color */
+    color: white;
+  }
+  
+  /* Step label text below */
+  .stepLabel {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    position: absolute;
+    top: 40px; /* Adjust distance below */
+    width: 100px;
+  }
+  
+  /* Inactive step text color */
+  .inactive {
+    color: #aaa;
+  }
+
+  .progressContainer {
+    width: 100%;
+    margin: 30px auto;
+    text-align: center;
+  }
+  
+  .progressBar {
+    height: 6px;
+    background-color: #ccc;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .progressFill {
+    height: 100%;
+    width: 0%;
+    background-color: #0070f3; /* Change to theme color */
+    transition: width 0.4s ease-in-out;
+  }
+  
+  /* Step Labels */
+  .stepLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .stepLabels span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .trackerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    transition: background 0.3s;
+  }
+  
+  .active {
+    background-color: #0070f3;
+    color: white;
+  }
+  
+  /* Line Connector */
+  .line {
+    width: 40px;
+    height: 5px;
+    background: #ddd;
+    position: absolute;
+    top: 15px;
+    left: -40px;
+  }
+  
+  .step:first-child .line {
+    display: none; /* Hide first line */
+  }
+  
+  /* Step Labels */
+  .stepLabel {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .dotContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    transition: background 0.3s;
+  }
+  
+  .activeDot {
+    background: #0070f3;
+    animation: bounce 0.5s ease-in-out infinite alternate;
+  }
+  
+  @keyframes bounce {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-5px);
+    }
+  }
+
+  .statusUpdateForm {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .statusUpdateForm label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .statusSelect {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
+    margin-top: 10px;
+  }
+  
+  .submitButton {
+    background-color: #0070f3;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .h3{
+    background-color: #ffffff;
+    padding: 10px;
+  }
+
+  .submitButton:hover {
+    background: #005bb5;
+    transform: scale(1.05);
+  }
+
+  /* 🔹 Activity Log Container */
+.activityLogContainer {
+  margin-top: 30px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 20px auto;
+}
+
+.activityLogList {
+  list-style: none;
+  padding: 0;
+}
+
+.activityLogItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.activityUser {
+  color: #0070f3;
+  font-weight: bold;
+}
+
+.activityTimestamp {
+  font-size: 12px;
+  color: #888;
+}

@@ -1,0 +1,177 @@
+/* General Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Complaint List */
+.complaintList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Complaint Card - Styled like the complaint detail page */
+.complaintCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  max-width: 500px;
+  text-align: left;
+  border-left: 6px solid #ff4d4d; /* Red accent like complaint details */
+}
+
+/* Complaint Title */
+.complaintCard h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0070f3;
+}
+
+/* Complaint Details */
+.complaintCard p {
+  font-size: 16px;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Complaint Status Label */
+.status {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #000;
+}
+
+.status span {
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Status Colors */
+.status .submitted {
+  background-color: #a8a8a8;
+  color: #fff;
+}
+
+.status .acknowledged {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.status .action-taken {
+  background-color: #0070f3;
+  color: white;
+}
+
+.status .resolved {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Status Select Dropdown */
+.statusSelect {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: white;
+}
+
+/* Complaint Progress Tracker */
+.trackerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  max-width: 600px;
+  margin: 30px auto;
+  position: relative;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Step Circles */
+.circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  transition: background 0.3s;
+}
+
+/* Active Status Circle */
+.active {
+  background-color: #0070f3;
+  color: white;
+}
+
+/* Line Connector */
+.line {
+  width: 100px;
+  height: 5px;
+  background: #ddd;
+  position: absolute;
+  top: 15px;
+  left: -100px;
+}
+
+.step:first-child .line {
+  display: none; /* Hide first line */
+}
+
+/* Step Labels */
+.stepLabel {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .complaintCard {
+      width: 90%;
+  }
+
+  .trackerContainer {
+      width: 90%;
+  }
+
+  .line {
+      width: 50px;
+      left: -50px;
+  }
+}

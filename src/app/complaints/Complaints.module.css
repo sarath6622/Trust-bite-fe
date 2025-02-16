@@ -1,0 +1,180 @@
+/* General Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Arial", sans-serif;
+  color: #ffffff;
+}
+
+/* Header */
+.header {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slogan {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #ddd;
+}
+
+/* Navbar */
+.navbar {
+  margin-top: 1rem;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+}
+
+.navList li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navList li a:hover {
+  color: #0070f3;
+}
+
+.active {
+  color: #0070f3;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* No Complaints Message */
+.noComplaints {
+  font-size: 18px;
+  color: #777;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Loading Indicator */
+.loading {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* Complaint List */
+.complaintList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Complaint Card */
+.complaintCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 500px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  border-left: 6px solid #ff4d4d; /* Highlighted border for complaints */
+}
+
+.complaintCard:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Restaurant Name */
+.complaintCard h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0070f3;
+}
+
+/* Complaint Message */
+.issue {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff4d4d;
+  margin-top: 5px;
+}
+
+/* Complaint Status */
+.status {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: #000;
+}
+
+.status span {
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.status .submitted {
+  background-color: #a8a8a8;
+  color: #333;
+}
+
+
+.status .pending {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.status .resolved {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Complaint Comment */
+.comment {
+  font-size: 16px;
+  color: #555;
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .complaintCard {
+    width: 95%;
+  }
+
+  .main {
+    padding: 1rem;
+  }
+}

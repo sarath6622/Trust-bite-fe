@@ -1,0 +1,389 @@
+/* General Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #f5f5f5; /* Light background for contrast */
+}
+
+/* Header */
+.header {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.h2{
+  font-size: larger;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; /* Centering */
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoContainer h1 {
+  margin: 0.5rem 0;
+}
+
+.slogan {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #ddd;
+}
+
+.navbar {
+  margin-top: 1rem;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+}
+
+.navList li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navList li a:hover {
+  color: #0070f3;
+}
+
+.active {
+  color: #0070f3;
+}
+
+/* Main Content Section */
+.main {
+  margin: auto;
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+  width: 50%;
+}
+
+/* Restaurant Details Section */
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.restaurantImage {
+  border-radius: 10px;
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+}
+
+.restaurantInfo {
+  text-align: left;
+  width: 100%;
+}
+
+.restaurantInfo p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.description {
+  font-style: italic;
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+}
+
+/* Button Container for Review & Complaint */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reviewButton {
+  background-color: #0070f3;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.reviewButton:hover {
+  background-color: #005bb5;
+}
+
+.complaintButton {
+  background-color: #ff3b30;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.complaintButton:hover {
+  background-color: #cc0000;
+}
+
+/* Review & Complaint Textbox */
+.textareaContainer {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none;
+}
+
+/* Submit Button */
+.submitButton {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #218838;
+}
+
+/* Card Layout for Reviews and Complaints */
+.card {
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stars {
+  display: flex;
+}
+
+.fullStar, .halfStar, .emptyStar {
+  font-size: 18px;
+  color: #f39c12; /* Gold for stars */
+}
+
+.comment {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Review Info (User email and date) */
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.avatar {
+  font-size: 30px;
+  color: #333;
+  margin-right: 10px;
+}
+
+.reviewInfo {
+  text-align: left;
+}
+
+.email {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .detailsContainer {
+    padding: 1rem;
+  }
+
+  .restaurantImage {
+    max-height: 250px;
+  }
+
+  .restaurantInfo p {
+    font-size: 14px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+}
+
+/* Complaints Section */
+.section {
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.status {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.status .pending {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.status .resolved {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+/* Complaint Form Container */
+.complaintBox {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; /* Centering */
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Form Heading */
+.complaintBox h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Complaint Textarea */
+.textarea {
+  width: 100%;
+  height: 100px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  resize: none;
+  transition: border-color 0.3s;
+}
+
+.textarea:focus {
+  border-color: #0070f3;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 112, 243, 0.3);
+}
+
+/* Submit Button */
+.submitButton {
+  background-color: #0070f3;
+  color: white;
+  font-size: 16px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #005bb5;
+  transform: scale(1.05);
+}
+
+/* Animation for Fade-in Effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .complaintBox {
+    padding: 15px;
+  }
+
+  .textarea {
+    height: 80px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
