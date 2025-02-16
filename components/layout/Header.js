@@ -106,47 +106,36 @@ export default function Header() {
         {/* Navigation Links */}
         <nav className={styles.navbar}>
           <ul className={styles.navList}>
-            {userRole === "Customer" && (
-              <li><Link href="/dashboard/customer" className={pathname === "/dashboard/customer" ? styles.active : ""}>Home</Link></li>
-            )}
-            {userRole === "RestaurantOwner" && (
-              <li><Link href="/dashboard/restaurantOwner" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>
-            )}
-            {userRole === "Admin" && (
-              <li><Link href="/dashboard/admin" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>
-            )}
-            {userRole === "FoodSafetyOfficeUser" && (
-              <li><Link href="/complaints/manage" className={pathname === "/complaints/manage" ? styles.active : ""}>Manage Complaints</Link></li>
-            )}
+            {userRole === "Customer" && ( <li><Link href="/dashboard/customer" className={pathname === "/dashboard/customer" ? styles.active : ""}>Home</Link></li>)}
+            {userRole === "RestaurantOwner" && ( <li><Link href="/dashboard/restaurantOwner" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>)}
+            {userRole === "Admin" && ( <li><Link href="/dashboard/admin" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>)}
+            {userRole === "FoodSafetyOfficeUser" && ( <li><Link href="/complaints/manage" className={pathname === "/complaints/manage" ? styles.active : ""}>Manage Complaints</Link></li>)}
             <li><Link href="/complaints" className={pathname === "/complaints" ? styles.active : ""}>Complaints</Link></li>
             <li><Link href="/restaurants" className={pathname === "/restaurants" ? styles.active : ""}>Restaurants</Link></li>
+        
+            {/* Notifications */}
+            <div className={styles.profileButton}>
+                <NotificationBell notifications={notifications} />
+            </div>
+
+            {/* Profile Dropdown */}
+            <div className={styles.profileContainer} ref={dropdownRef}>
+              {/* Profile Icon & Username */}
+              <button className={styles.profileButton} onClick={() => setShowDropdown((prev) => !prev)}  >
+                <Image src="/user-icon.png" alt="Profile" width={30} height={30} />
+                  <span className={styles.userName}>{userName}</span> {/* ✅ Always visible username */}
+              </button>
+
+              {/* Dropdown with Role & Logout */}
+              {showDropdown && (
+                <div className={styles.dropdown}>
+                  <p className={styles.userRole}><strong>Role:</strong> {userRole}</p>
+                  <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+                </div>
+              )}
+            </div>
           </ul>
         </nav>
-
-        {/* Profile Dropdown */}
-        <div className={styles.profileContainer} ref={dropdownRef}>
-          {/* Profile Icon & Username */}
-          <button 
-            className={styles.profileButton} 
-            onClick={() => setShowDropdown((prev) => !prev)} // Toggle dropdown
-          >
-            <Image src="/user-icon.png" alt="Profile" width={30} height={30} />
-          </button>
-
-          {/* Dropdown with Role & Logout */}
-          {showDropdown && (
-            <div className={styles.dropdown}>
-              <span className={styles.userName}>{userName}</span> {/* ✅ Always visible username */}
-              <p className={styles.userRole}><strong>Role:</strong> {userRole}</p>
-              <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
-            </div>
-          )}
-        </div>
-
-        {/* Notifications */}
-        <div className={styles.notificationContainer}>
-          <NotificationBell notifications={notifications} />
-        </div>
       </div>
     </header>
   );

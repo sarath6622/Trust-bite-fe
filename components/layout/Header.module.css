@@ -37,6 +37,8 @@
 /* Navigation */
 .navbar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Desktop Navigation */
@@ -104,8 +106,13 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
   transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+
 }
 
 .profileButton:hover {
@@ -131,7 +138,6 @@
   font-size: 14px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 8px;
 }
 
 .logoutButton {
@@ -198,4 +204,50 @@
   .navbar.active {
     display: flex;
   }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 100;
+  transition: all 0.3s ease-in-out;
+}
+
+.userRole {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+  padding: 5px;
+  font-weight: 500;
+}
+
+.logoutButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%;
+  text-align: center;
+}
+
+.logoutButton:hover {
+  background-color: #e60000;
+}
+
+.logoutButton:active {
+  background-color: #cc0000;
 }
