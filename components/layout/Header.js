@@ -15,7 +15,7 @@ export default function Header() {
   const [restaurantExists, setRestaurantExists] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userName, setUserName] = useState("");
-  const [notifications, setNotifications] = useState([]); // ✅ Notification state
+  const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const dropdownRef = useRef(null);
   const notificationRef = useRef(null);
@@ -28,6 +28,7 @@ export default function Header() {
       const user = JSON.parse(atob(token.split(".")[1]));
       setUserRole(user.role);
       setUserName(user.name);
+      console.log(user);
 
       if (user.role === "RestaurantOwner") {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/restaurants/owner`, {
@@ -60,7 +61,6 @@ export default function Header() {
     }
   };
 
-
   const fetchNotifications = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
@@ -70,7 +70,6 @@ export default function Header() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotifications(response.data.notifications);
-      console.log(response.data.notifications);
     } catch (error) {
       console.error("❌ Error fetching notifications:", error);
     }
@@ -78,7 +77,7 @@ export default function Header() {
 
   useEffect(() => {
     fetchUserData();
-    fetchNotifications(); // ✅ Fetch notifications
+    fetchNotifications();
   }, []);
 
   useEffect(() => {
@@ -107,13 +106,15 @@ export default function Header() {
         {/* Navigation Links */}
         <nav className={styles.navbar}>
           <ul className={styles.navList}>
-
-          {userRole === "Customer" && (
+            {userRole === "Customer" && (
               <li><Link href="/dashboard/customer" className={pathname === "/dashboard/customer" ? styles.active : ""}>Home</Link></li>
-          )}
-          {userRole === "RestaurantOwner" && (
+            )}
+            {userRole === "RestaurantOwner" && (
               <li><Link href="/dashboard/restaurantOwner" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>
-          )}
+            )}
+            {userRole === "Admin" && (
+              <li><Link href="/dashboard/admin" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>
+            )}
             {userRole === "FoodSafetyOfficeUser" && (
               <li><Link href="/complaints/manage" className={pathname === "/complaints/manage" ? styles.active : ""}>Manage Complaints</Link></li>
             )}
@@ -124,24 +125,28 @@ export default function Header() {
 
         {/* Profile Dropdown */}
         <div className={styles.profileContainer} ref={dropdownRef}>
-          <button className={styles.profileButton} onClick={() => setShowDropdown((prev) => !prev)}>
+          {/* Profile Icon & Username */}
+          <button 
+            className={styles.profileButton} 
+            onClick={() => setShowDropdown((prev) => !prev)} // Toggle dropdown
+          >
             <Image src="/user-icon.png" alt="Profile" width={30} height={30} />
           </button>
 
+          {/* Dropdown with Role & Logout */}
           {showDropdown && (
             <div className={styles.dropdown}>
-              <p className={styles.userName}>{userName}</p>
-              <button onClick={handleLogout}  className={styles.logoutButton}>Logout</button>
+              <span className={styles.userName}>{userName}</span> {/* ✅ Always visible username */}
+              <p className={styles.userRole}><strong>Role:</strong> {userRole}</p>
+              <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
             </div>
           )}
         </div>
 
+        {/* Notifications */}
         <div className={styles.notificationContainer}>
-
           <NotificationBell notifications={notifications} />
         </div>
-
-
       </div>
     </header>
   );

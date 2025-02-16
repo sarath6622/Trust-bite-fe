@@ -29,28 +29,11 @@ function Home() {
       if (role === "FoodSafetyOfficeUser") {
         router.push("/dashboard/foodSafety");
       }
+      if (role === "Admin") {
+        router.push("/dashboard/admin");
+      }
     }
   }, [router]);
-
-  // Logout function
-  const handleLogout = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      localStorage.removeItem("token"); // Clear token
-      router.push("/login"); // Redirect to login page
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
-  };
 
   return (
     <div className={styles.container}>
