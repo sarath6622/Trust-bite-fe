@@ -92,7 +92,13 @@ export default function Header() {
         {/* Navigation Links */}
         <nav className={styles.navbar}>
           <ul className={styles.navList}>
-            <li><Link href="/" className={pathname === "/" ? styles.active : ""}>Home</Link></li>
+
+          {userRole === "Customer" && (
+              <li><Link href="/dashboard/customer" className={pathname === "/dashboard/customer" ? styles.active : ""}>Home</Link></li>
+          )}
+          {userRole === "RestaurantOwner" && (
+              <li><Link href="/dashboard/restaurantOwner" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Home</Link></li>
+          )}
             {userRole === "FoodSafetyOfficeUser" && (
               <li><Link href="/complaints/manage" className={pathname === "/complaints/manage" ? styles.active : ""}>Manage Complaints</Link></li>
             )}

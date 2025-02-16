@@ -15,9 +15,23 @@ function Home() {
   const router = useRouter();
 
   // Logout function
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token from localStorage
-    router.push("/login"); // Redirect to login page after logout
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/logout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      localStorage.removeItem("token"); // Clear token
+      router.push("/login"); // Redirect to login page
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   return (
@@ -26,7 +40,6 @@ function Home() {
         <title>Trust Bite - Home</title>
         <meta name="description" content="Ensuring Safe Dining Experiences" />
       </Head>
-
       <Header />
 
       <main className={styles.main}>
