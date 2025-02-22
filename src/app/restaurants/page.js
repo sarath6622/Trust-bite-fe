@@ -17,6 +17,11 @@ function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterRating, setFilterRating] = useState(0);
+  const [filterCuisine, setFilterCuisine] = useState("");
+  const [filterPrice, setFilterPrice] = useState("");
+  const [filterOpenNow, setFilterOpenNow] = useState(false);
+  const [filterLocation, setFilterLocation] = useState("");
+  const [filterVeg, setFilterVeg] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const restaurantsPerPage = 6;
   const [error, setError] = useState("");
@@ -37,13 +42,28 @@ function Restaurants() {
     fetchRestaurants();
   }, []);
 
-  // Filter restaurants based on search and rating
+  // Filter restaurants based on search and filters
   const filteredRestaurants = restaurants
     .filter((restaurant) =>
       restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .filter((restaurant) =>
-      filterRating ? restaurant.rating === filterRating : true
+      filterRating ? restaurant.avgRating >= filterRating : true
+    )
+    .filter((restaurant) =>
+      filterCuisine ? restaurant.cuisineType === filterCuisine : true
+    )
+    .filter((restaurant) =>
+      filterPrice ? restaurant.priceRange === filterPrice : true
+    )
+    .filter((restaurant) =>
+      filterOpenNow ? restaurant.isOpenNow : true
+    )
+    .filter((restaurant) =>
+      filterLocation ? restaurant.address.includes(filterLocation) : true
+    )
+    .filter((restaurant) =>
+      filterVeg ? restaurant.vegFriendly : true
     );
 
   // Pagination Logic
@@ -63,6 +83,31 @@ function Restaurants() {
 
   const handleFilterChange = (e) => {
     setFilterRating(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const handleCuisineChange = (e) => {
+    setFilterCuisine(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handlePriceChange = (e) => {
+    setFilterPrice(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleOpenNowChange = (e) => {
+    setFilterOpenNow(e.target.checked);
+    setCurrentPage(1);
+  };
+
+  const handleLocationChange = (e) => {
+    setFilterLocation(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleVegChange = (e) => {
+    setFilterVeg(e.target.checked);
     setCurrentPage(1);
   };
 
@@ -94,12 +139,37 @@ function Restaurants() {
           />
           <select onChange={handleFilterChange} className={styles.filter}>
             <option value="0">All Ratings</option>
-            <option value="1">1 Star</option>
-            <option value="2">2 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="5">5 Stars</option>
+            <option value="1">1 Star & Up</option>
+            <option value="2">2 Stars & Up</option>
+            <option value="3">3 Stars & Up</option>
+            <option value="4">4 Stars & Up</option>
+            <option value="5">5 Stars Only</option>
           </select>
+          <select onChange={handleCuisineChange} className={styles.filter}>
+            <option value="">All Cuisines</option>
+            <option value="Indian">Indian</option>
+            <option value="Italian">Italian</option>
+            <option value="Chinese">Chinese</option>
+          </select>
+          <select onChange={handlePriceChange} className={styles.filter}>
+            <option value="">All Prices</option>
+            <option value="$">$</option>
+            <option value="$$">$$</option>
+            <option value="$$$">$$$</option>
+          </select>
+          <label>
+            <input type="checkbox" onChange={handleOpenNowChange} /> Open Now
+          </label>
+          <input
+            type="text"
+            placeholder="Enter location"
+            value={filterLocation}
+            onChange={handleLocationChange}
+            className={styles.searchBar}
+          />
+          <label>
+            <input type="checkbox" onChange={handleVegChange} /> Vegetarian
+          </label>
         </div>
 
         {/* Restaurant Cards */}
@@ -124,22 +194,7 @@ function Restaurants() {
             </div>
           ))}
         </div>
-
-        {/* Pagination */}
-        <div className={styles.pagination}>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? styles.activePage : ""}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
       </main>
-
-      {/* <Footer /> */}
     </div>
   );
 }

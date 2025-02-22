@@ -1,148 +1,172 @@
+/* General Layout */
 .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-  }
-  
-  .header {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 2rem 0;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background-color: #f4f4f9;
+}
 
-  .h2{
-    color: white;
-    padding: 10px;
-    font-size: larger;
-  }
-  
-  .logoContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .logoContainer h1 {
-    margin: 0.5rem 0;
-  }
-  
-  .slogan {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-  }
-  
-  .navbar {
-    margin-top: 1rem;
-  }
-  
-  .navList {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0;
-  }
-  
-  .navList li a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
-  
-  .navList li a:hover {
-    color: #0070f3;
-  }
-  
-  .active {
-    color: #0070f3;
-  }
-  
-  .main {
-    flex: 1;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .searchFilter {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .searchBar {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .filter {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .cardContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  
-  .card {
-    background-color: #f8f8f8;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-    text-align: center;
-  }
-  
-  .detailButton {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #0070f3;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .detailButton:hover {
-    background-color: #005bb5;
-  }
-  
-  .pagination {
-    margin-top: 2rem;
-  }
-  
-  .pagination button {
-    margin: 0 0.25rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #0070f3;
-    color: white;
-    transition: background-color 0.3s;
-  }
-  
-  .pagination button:hover {
-    background-color: #005bb5;
-  }
-  
-  .activePage {
-    background-color: #005bb5;
-  }
-  
-  .footer {
-    text-align: center;
-    padding: 1rem 0;
-    border-top: 1px solid #eaeaea;
-    background-color: #f8f8f8;
-  }
+/* Header */
+.header {
+  background: linear-gradient(135deg, #000000, #1e3c72);
+  color: #fff;
+  text-align: center;
+  padding: 2rem 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.h2 {
+  color: white;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slogan {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+/* Navbar */
+.navbar {
+  margin-top: 1rem;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+}
+
+.navList li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.navList li a:hover {
+  color: #ffcc00;
+}
+
+.active {
+  color: #ffcc00;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Search & Filters */
+.searchFilter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.searchBar,
+.filter {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.searchBar:focus,
+.filter:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+/* Card Styling */
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button */
+.detailButton {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.detailButton:hover {
+  background-color: #005bb5;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 2rem;
+}
+
+.pagination button {
+  margin: 0 0.3rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #0070f3;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination button:hover {
+  background-color: #005bb5;
+}
+
+.activePage {
+  background-color: #ffcc00 !important;
+  color: #333 !important;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid #eaeaea;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}

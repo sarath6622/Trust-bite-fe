@@ -1,14 +1,34 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./Notification.module.css"; // Import CSS Module
+import { useRouter } from "next/navigation";
+import axios from 'axios';
 
 const NotificationBell = ({ notifications }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const bellRef = useRef(null);
   const dropdownRef = useRef(null);
+  const router = useRouter();
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
     setShowDropdown((prev) => !prev);
+  };
+
+  const handleNotificationClick = async (notification) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/restaurants/notifications/${notification._id}/read`,
+        {}, // Empty body, since we only update `isRead`
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+  
+      // Redirect to the complaint page
+      router.push(`/complaints/${notification.referenceId}`);
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
   };
 
   // Close dropdown when clicking outside
@@ -38,9 +58,11 @@ const NotificationBell = ({ notifications }) => {
         ref={bellRef}
         onClick={toggleDropdown}
       >
-        {notifications.length > 0 && (
-          <span className={styles.notificationCount}>{notifications.length}</span>
-        )}
+      {notifications.filter(notification => !notification.isRead).length > 0 && (
+        <span className={styles.notificationCount}>
+          {notifications.filter(notification => !notification.isRead).length}
+        </span>
+      )}
         <img src="/bell-icon.png" alt="Notifications" className={styles.bellIcon} />
       </div>
 
@@ -49,19 +71,20 @@ const NotificationBell = ({ notifications }) => {
         className={`${styles.notificationDropdown} ${showDropdown ? styles.active : ""}`}
         ref={dropdownRef}
       >
-        {notifications.length > 0 ? (
-          notifications.map((notification, index) => (
-            <div key={index} className={styles.notificationItem}>
+      {notifications.filter(notification => !notification.isRead).length > 0 ? (
+        notifications
+          .filter(notification => !notification.isRead)
+          .map((notification, index) => (
+            <div key={index} className={styles.notificationItem} onClick={() => handleNotificationClick(notification)}>
               <p>{notification.message}</p>
               <span className={styles.timestamp}>
                 {new Date(notification.createdAt).toLocaleString()}
               </span>
             </div>
-            
           ))
-        ) : (
-          <div className={styles.noNotifications}>No new notifications</div>
-        )}
+      ) : (
+        <div className={styles.noNotifications}>No new notifications</div>
+      )}
       </div>
     </div>
   );

@@ -6,6 +6,10 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Header from "../../../../components/layout/Header";
 import styles from "./ComplaintDetail.module.css"; // New CSS file
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import { toast as hotToast } from "react-hot-toast";
 
 const statusSteps = ["Submitted", "Acknowledged", "Action Taken", "Resolved"];
 
@@ -61,33 +65,43 @@ function ComplaintDetail() {
   const nextStatuses = statusSteps.slice(currentStep + 1);
   console.log(nextStatuses.length);
 
+
   const handleStatusUpdate = async () => {
+    if (!newStatus) {
+      toast.error("Please select a status.");
+      return;
+    }
+  
+    if ((newStatus === "Action Taken" || newStatus === "Resolved") && !remark.trim()) {
+      toast.error(`Please provide details about the work done before setting status to ${newStatus}.`);
+      return;
+    }
+  
+    toast(
+      (t) => (
+        <div>
+          <p>Are you sure you want to update the status to '{newStatus}'?</p>
+          <button onClick={() => { 
+            toast.dismiss(t.id);
+            updateStatus(); 
+          }} className="bg-blue-500 text-white p-2 rounded">Yes</button>
+          <button onClick={() => toast.dismiss(t.id)} className="ml-2 bg-gray-300 p-2 rounded">No</button>
+        </div>
+      ),
+      { duration: Infinity }
+    );
+  };
+  
+  const updateStatus = async () => {
     try {
-      if (!newStatus) {
-        alert("Please select a status.");
-        return;
-      }
-  
-      if ((newStatus === "Action Taken" || newStatus === "Resolved") && !remark.trim()) {
-        alert(`Please provide details about the work done before setting status to ${newStatus}.`);
-        return;
-      }
-  
-      const confirmation = window.confirm(`Are you sure you want to update the status to '${newStatus}'?`);
-      if (!confirmation) return;
-  
       const token = localStorage.getItem("token");
       const headers = { Authorization: `Bearer ${token}` };
-  
-      const response = await axios.put(
+      await axios.put(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/restaurants/complaint/${id}/status`,
         { status: newStatus, remark },
         { headers }
       );
   
-      console.log("✅ API Response:", response.data); // Log API success response
-  
-      // Update UI
       setComplaint((prev) => ({
         ...prev,
         status: newStatus,
@@ -95,23 +109,11 @@ function ComplaintDetail() {
         activityLog: [...prev.activityLog, { status: newStatus, remark, timestamp: new Date() }]
       }));
   
-      alert("Complaint status updated successfully!");
+      toast.success("Complaint status updated successfully!");
       setNewStatus("");
       setRemark("");
     } catch (error) {
-      console.error("❌ Error updating status:", error);
-  
-      // Check if response exists
-      if (error.response) {
-        console.error("❌ API Error Response:", error.response.data);
-        alert(`Error: ${error.response.data.message || "Unknown API error"}`);
-      } else if (error.request) {
-        console.error("❌ No Response from API:", error.request);
-        alert("No response from server. Please try again.");
-      } else {
-        console.error("❌ Client Error:", error.message);
-        alert("Something went wrong. Please check your network or server.");
-      }
+      toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
 
@@ -122,6 +124,8 @@ function ComplaintDetail() {
       </Head>
 
       <Header />
+      <ToastContainer position="top-right" autoClose={3000} />
+
 
       <main className={styles.main}>
         <h2>Complaint Details</h2>

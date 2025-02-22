@@ -7,6 +7,8 @@ import Head from "next/head";
 import Header from "../../../../components/layout/Header"; 
 import styles from "./ComplaintManagement.module.css";
 import withAuth from "../../../../components/utils/withAuth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const statusSteps = ["Submitted", "Acknowledged", "Action Taken", "Resolved"];
 
@@ -21,7 +23,7 @@ function ComplaintManagement() {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          setError("Authentication token missing. Please log in.");
+          toast.error("Authentication token missing. Please log in.");
           return;
         }
 
@@ -30,7 +32,7 @@ function ComplaintManagement() {
         setComplaints(response.data.complaints);
       } catch (error) {
         console.error("❌ Error fetching complaints:", error.response?.data || error.message);
-        setError("Failed to fetch complaints. Please try again later.");
+        toast.error("Failed to fetch complaints. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -54,8 +56,11 @@ function ComplaintManagement() {
           complaint._id === complaintId ? { ...complaint, status: newStatus } : complaint
         )
       );
+
+      toast.success("Complaint status updated successfully!");
     } catch (error) {
       console.error("❌ Error updating status:", error.response?.data || error.message);
+      toast.error("Failed to update status. Please try again.");
     }
   };
 
@@ -68,6 +73,7 @@ function ComplaintManagement() {
       </Head>
 
       <Header />
+      <ToastContainer position="top-right" autoClose={3000} />
 
       <main className={styles.main}>
         <h2>Complaint Management</h2>
@@ -85,8 +91,6 @@ function ComplaintManagement() {
                 <h3>{complaint.restaurant.name}</h3>
                 <p><strong>Issue:</strong> {complaint.message}</p>
                 <p><strong>Status:</strong> {complaint.status}</p>
-
-
               </div>
             ))}
           </div>
