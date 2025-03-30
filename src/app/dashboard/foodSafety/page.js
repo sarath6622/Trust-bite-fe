@@ -6,35 +6,33 @@ import axios from "axios";
 import withAuth from "../../../../components/utils/withAuth";
 import styles from "../Dashboard.module.css";
 import Header from "../../../../components/layout/Header";
-import { FaChevronDown, FaChevronUp, FaUserShield } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 function FoodSafetyOfficerDashboard() {
-  const [complaints, setComplaints] = useState({
-    Submitted: [],
-    Acknowledged: [],
-    "Action Taken": [],
-    Resolved: [],
-  });
+  const [complaints, setComplaints] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // 🛑 All sections collapsed by default
   const [showComplaints, setShowComplaints] = useState({
-    Submitted: true,
-    Acknowledged: true,
-    "Action Taken": true,
-    Resolved: true,
+    Submitted: false,
+    Acknowledged: false,
+    "Action Taken": false,
+    Resolved: false,
   });
 
   const router = useRouter();
 
-  // ⭐ Format date
+  // ⭐ Format date for display
   const formatDate = (dateString) => {
     const options = { day: "numeric", month: "short", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-GB", options).replace(",", "");
   };
 
+  // 🔥 Fetch complaints
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("🔹 Fetching food safety officer complaints...");
         const token = localStorage.getItem("token");
         if (!token) {
           console.error("❌ No token found.");
@@ -43,29 +41,20 @@ function FoodSafetyOfficerDashboard() {
 
         const headers = { Authorization: `Bearer ${token}` };
 
-        // Fetch all complaints for Food Safety Officer
+        // Fetch complaints
         const complaintsRes = await axios.get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/restaurants/all-complaints`,
           { headers }
         );
 
-        // Group complaints by status
-        const groupedComplaints = {
-          Submitted: [],
-          Acknowledged: [],
-          "Action Taken": [],
-          Resolved: [],
-        };
+        const sortedComplaints = complaintsRes.data.complaints.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
 
-        complaintsRes.data.complaints.forEach((complaint) => {
-          if (groupedComplaints[complaint.status]) {
-            groupedComplaints[complaint.status].push(complaint);
-          }
-        });
-
-        setComplaints(groupedComplaints);
+        setComplaints(sortedComplaints);
       } catch (error) {
         console.error("❌ Error fetching complaints:", error.response ? error.response.data : error);
+        setError("Failed to fetch complaints. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -73,6 +62,11 @@ function FoodSafetyOfficerDashboard() {
 
     fetchData();
   }, []);
+
+  // ⭐ Handle navigation on click
+  const handleComplaintClick = (complaintId) => {
+    router.push(`/complaints/${complaintId}`);
+  };
 
   if (loading) return <p>Loading...</p>;
 
@@ -84,40 +78,65 @@ function FoodSafetyOfficerDashboard() {
 
         {/* 🔹 Complaint Status Count Cards */}
         <div className={styles.statsContainer}>
-          {Object.keys(complaints).map((status) => (
+          {["Submitted", "Acknowledged", "Action Taken", "Resolved"].map((status) => (
             <div key={status} className={styles.statsCard}>
               <h4>{status}</h4>
-              <p className={styles.statsNumber}>{complaints[status].length}</p>
+              <p className={styles.statsNumber}>
+                {complaints.filter((c) => c.status === status).length}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* 🔹 Complaints Section (Collapsible) */}
-        {Object.keys(complaints).map((status) => (
-          <div key={status} className={styles.section}>
-            <div
-              className={styles.sectionHeader}
-              onClick={() => setShowComplaints({ ...showComplaints, [status]: !showComplaints[status] })}
-            >
-              <h3>{status} Complaints ({complaints[status].length})</h3>
-              {showComplaints[status] ? <FaChevronUp /> : <FaChevronDown />}
+        {/* 🔹 Complaints Section (Collapsible - All collapsed by default) */}
+        {["Submitted", "Acknowledged", "Action Taken", "Resolved"].map((status) => {
+          const complaintsByStatus = complaints.filter((c) => c.status === status);
+
+          return (
+            <div key={status} className={styles.section}>
+              <div
+                className={styles.sectionHeader}
+                onClick={() =>
+                  setShowComplaints({
+                    ...showComplaints,
+                    [status]: !showComplaints[status],
+                  })
+                }
+              >
+                <h3>
+                  {status} Complaints ({complaintsByStatus.length})
+                </h3>
+                {showComplaints[status] ? <FaChevronUp /> : <FaChevronDown />}
+              </div>
+
+              <div className={styles.complaintList}>
+              {showComplaints[status] && (
+                complaintsByStatus.length === 0 ? (
+                  <p>No {status.toLowerCase()} complaints.</p>
+                ) : (
+
+                  complaintsByStatus.map((complaint) => (
+                    <div
+                      key={complaint._id}
+                      className={styles.complaintCard}
+                      onClick={() => handleComplaintClick(complaint._id)}
+                      style={{ cursor: "pointer" }}  // Clickable with pointer cursor
+                    >
+                      <p><strong>Summary:</strong> {complaint.message || "No message available"}</p>
+                      <p><strong>User:</strong> {complaint.user || "Anonymous"}</p>
+                      <p><strong>Restaurant:</strong> {complaint.restaurant?.name || "Unknown"}</p>
+                      <p><strong>Date:</strong> {formatDate(complaint.createdAt)}</p>
+                    </div>
+                  ))
+                )
+                
+              )}
             </div>
-            {showComplaints[status] && (
-              complaints[status].length === 0 ? (
-                <p>No {status.toLowerCase()} complaints.</p>
-              ) : (
-                complaints[status].map((complaint) => (
-                  <div key={complaint._id} className={styles.card}>
-                    <p><strong>Message:</strong> {complaint.message || "No message available"}</p>
-                    <p><strong>User:</strong> {complaint.user?.email || "Anonymous"}</p>
-                    <p><strong>Restaurant:</strong> {complaint.restaurant?.name || "Unknown"}</p>
-                    <p><strong>Date:</strong> {formatDate(complaint.createdAt)}</p>
-                  </div>
-                ))
-              )
-            )}
-          </div>
-        ))}
+
+              
+            </div>
+          );
+        })}
       </div>
     </>
   );

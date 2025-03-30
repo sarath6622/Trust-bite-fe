@@ -71,7 +71,7 @@ export default function Login() {
 
       <div className="flex justify-center items-center w-full md:w-1/2 p-6 m-auto">
         <div className="hidden md:flex flex-col justify-center items-center w-1/2 text-white px-10">
-          <h1 className="text-4xl font-bold mb-4">Welcome to Trust Bite!</h1>
+          <h1 className="text-4xl font-bold mb-4">Welcome to Trust Bites!</h1>
           <p className="text-lg">Your trusted platform for honest restaurant reviews.</p>
         </div>
 

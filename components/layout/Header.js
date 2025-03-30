@@ -112,6 +112,8 @@ export default function Header() {
             {userRole === "FoodSafetyOfficeUser" && ( <li><Link href="/complaints/manage" className={pathname === "/complaints/manage" ? styles.active : ""}>Manage Complaints</Link></li>)}
             <li><Link href="/complaints" className={pathname === "/complaints" ? styles.active : ""}>Complaints</Link></li>
             <li><Link href="/restaurants" className={pathname === "/restaurants" ? styles.active : ""}>Restaurants</Link></li>
+            {userRole === "RestaurantOwner" && ( <li><Link href="/dashboard/restaurantOwner" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Manage Restaurant</Link></li>)}
+
         
             {/* Notifications */}
             <div className={styles.profileButton}>
@@ -119,21 +121,33 @@ export default function Header() {
             </div>
 
             {/* Profile Dropdown */}
-            <div className={styles.profileContainer} ref={dropdownRef}>
+            <div className={styles.profileContainer}>
               {/* Profile Icon & Username */}
-              <button className={styles.profileButton} onClick={() => setShowDropdown((prev) => !prev)}  >
-                <Image src="/user-icon.png" alt="Profile" width={30} height={30} />
-                  <span className={styles.userName}>{userName}</span> {/* ✅ Always visible username */}
-              </button>
+             
+                  <div className={styles.profiledata}>
+                  <p className={styles.userName}> {userName}</p>
+                  <p className={styles.userRole}> {userRole}</p>
 
-              {/* Dropdown with Role & Logout */}
-              {showDropdown && (
-                <div className={styles.dropdown}>
-                  <p className={styles.userRole}><strong>Role:</strong> {userRole}</p>
-                  <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
-                </div>
-              )}
+                  </div>
+                  <Image src="/user-icon.png" alt="Profile" width={30} height={30} />
             </div>
+                  <svg 
+                    onClick={handleLogout} 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="30" 
+                    height="30" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    style={{ cursor: "pointer" }}
+                  >
+                    <path d="M9 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
           </ul>
         </nav>
       </div>
