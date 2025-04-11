@@ -6,10 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Header from "../../../components/layout/Header";
-// import Footer from "../../../components/layout/Footer";
-
 import axios from "axios";
-import withAuth from "../../../components/utils/withAuth"; // Import HOC for authentication
+import withAuth from "../../../components/utils/withAuth";
 import styles from "./Restaurants.module.css";
 
 function Restaurants() {
@@ -36,6 +34,7 @@ function Restaurants() {
         setRestaurants(response.data);
       } catch (err) {
         setError("Failed to load restaurants");
+        console.error("Error fetching restaurants:", err);
       }
     };
 
@@ -127,7 +126,6 @@ function Restaurants() {
       <Header />
 
       <main className={styles.main}>
-
         {/* Search and Filter Section */}
         <div className={styles.searchFilter}>
           <input
@@ -174,24 +172,46 @@ function Restaurants() {
 
         {/* Restaurant Cards */}
         <div className={styles.cardContainer}>
-          {currentRestaurants.map((restaurant) => (
-            <div key={restaurant._id} className={styles.card}>
-              <Image
-                src="/restaurant-placeholder.jpg"
-                alt={restaurant.name}
-                width={300}
-                height={200}
-                className={styles.restaurantImage}
-              />
-              <h3>{restaurant.name}</h3>
-              <p>📍 {restaurant.address}</p>
-              <p>📞 {restaurant.contact}</p>
-              <p>🍽️ {restaurant.cuisineType}</p>
-              <p>⭐ {restaurant.avgRating} Stars</p>
-              <Link href={`/restaurants/${restaurant._id}`}>
-                <button className={styles.detailButton}>View Details</button>
-              </Link>
-            </div>
+          {currentRestaurants.map((restaurant) => {
+            const imageUrl = restaurant.photos && restaurant.photos.length > 0
+  ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/restaurant-images/${restaurant.photos[0].filename}`
+  : "/restaurant-placeholder.jpg";
+
+            return (
+              <div key={restaurant._id} className={styles.card}>
+                <Image
+                  src={imageUrl}
+                  alt={restaurant.name}
+                  width={300}
+                  height={200}
+                  className={styles.restaurantImage}
+                  onError={(e) => {
+                    e.target.src = "/restaurant-placeholder.jpg";
+                  }}
+                />
+                <h3>{restaurant.name}</h3>
+                <p>📍 {restaurant.address}</p>
+                <p>📞 {restaurant.contact}</p>
+                <p>🍽️ {restaurant.cuisineType}</p>
+                <p>⭐ {restaurant.avgRating} Stars</p>
+                <Link href={`/restaurants/${restaurant._id}`}>
+                  <button className={styles.detailButton}>View Details</button>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Pagination */}
+        <div className={styles.pagination}>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={currentPage === index + 1 ? styles.activePage : ""}
+            >
+              {index + 1}
+            </button>
           ))}
         </div>
       </main>

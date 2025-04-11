@@ -17,12 +17,14 @@ function RestaurantDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   
+  
   // Review & Complaint States
   const [showReviewBox, setShowReviewBox] = useState(false);
   const [showComplaintBox, setShowComplaintBox] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [complaintText, setComplaintText] = useState("");
   const [rating, setRating] = useState(5); // Default rating
+  const [complaintImage, setComplaintImage] = useState(null);
 
     // ⭐ Format date to "10th Feb, 2025"
     const formatDate = (dateString) => {
@@ -116,16 +118,31 @@ function RestaurantDetail() {
         return;
       }
   
-      const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+      if (!complaintText) {
+        alert("Please enter a complaint message.");
+        return;
+      }
+  
+      const formData = new FormData();
+      formData.append("message", complaintText);
+      if (complaintImage) {
+        formData.append("image", complaintImage); // Append image if available
+      }
+  
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data", // Set content type for form data
+      };
   
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/restaurants/${id}/complaint`, // ✅ Correct URL
-        { message: complaintText },
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/restaurants/${id}/complaint`, // Ensure this URL is correct
+        formData,
         { headers }
       );
   
       alert("Complaint submitted successfully!");
       setComplaintText("");
+      setComplaintImage(null); // Clear the selected image
       setShowComplaintBox(false);
     } catch (error) {
       console.error("❌ Error submitting complaint:", error.response?.data || error.message);
@@ -201,12 +218,18 @@ function RestaurantDetail() {
         {/* Complaint Form */}
         {showComplaintBox && (
           <div className={styles.complaintBox}>
-            <h3 >Post a Complaint</h3>
+            <h3>Post a Complaint</h3>
             <textarea
               className={styles.textarea}
               placeholder="Describe your issue..."
               value={complaintText}
               onChange={(e) => setComplaintText(e.target.value)}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setComplaintImage(e.target.files[0])} // Update state with selected file
+              className={styles.fileInput}
             />
             <button className={styles.submitButton} onClick={handleComplaintSubmit}>
               Submit Complaint

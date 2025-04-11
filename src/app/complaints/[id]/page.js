@@ -9,7 +9,6 @@ import styles from "./ComplaintDetail.module.css"; // New CSS file
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import { toast as hotToast } from "react-hot-toast";
 
 const statusSteps = ["Submitted", "Acknowledged", "Action Taken", "Resolved"];
 
@@ -35,7 +34,6 @@ function ComplaintDetail() {
 
         const user = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
         setUserRole(user.role);
-        
 
         const headers = { Authorization: `Bearer ${token}` };
         const response = await axios.get(
@@ -63,20 +61,18 @@ function ComplaintDetail() {
 
   // Generate next possible statuses (only forward movement)
   const nextStatuses = statusSteps.slice(currentStep + 1);
-  console.log(nextStatuses.length);
-
 
   const handleStatusUpdate = async () => {
     if (!newStatus) {
       toast.error("Please select a status.");
       return;
     }
-  
+
     if ((newStatus === "Action Taken" || newStatus === "Resolved") && !remark.trim()) {
       toast.error(`Please provide details about the work done before setting status to ${newStatus}.`);
       return;
     }
-  
+
     toast(
       (t) => (
         <div>
@@ -91,7 +87,7 @@ function ComplaintDetail() {
       { duration: Infinity }
     );
   };
-  
+
   const updateStatus = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -101,14 +97,14 @@ function ComplaintDetail() {
         { status: newStatus, remark },
         { headers }
       );
-  
+
       setComplaint((prev) => ({
         ...prev,
         status: newStatus,
         remark,
         activityLog: [...prev.activityLog, { status: newStatus, remark, timestamp: new Date() }]
       }));
-  
+
       toast.success("Complaint status updated successfully!");
       setNewStatus("");
       setRemark("");
@@ -126,7 +122,6 @@ function ComplaintDetail() {
       <Header />
       <ToastContainer position="top-right" autoClose={3000} />
 
-
       <main className={styles.main}>
         <h2>Complaint Details</h2>
 
@@ -136,10 +131,16 @@ function ComplaintDetail() {
           <p><strong>Issue:</strong> {complaint.message}</p>
           <p><strong>Date Submitted:</strong> {new Date(complaint.createdAt).toLocaleDateString()}</p>
           {complaint.remark && <p><strong>Food Safety Remark:</strong> {complaint.remark}</p>}
+          {complaint.image && (
+            <div className={styles.imageContainer}>
+              <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${complaint.image.url}`} alt="Complaint" className={styles.complaintImage} />
+            </div>
+          )}
         </div>
-                {/* Status Update Form (Only for FoodSafetyOfficeUser) */}
+
+        {/* Status Update Form (Only for FoodSafetyOfficeUser) */}
         {userRole === "FoodSafetyOfficeUser" && nextStatuses.length > 0 && (
-        <div className={styles.statusUpdateForm}>
+          <div className={styles.statusUpdateForm}>
             <h3>Update Complaint Status</h3>
             <label>Status:</label>
             <select className={styles.statusSelect} value={newStatus} onChange={(e) => setNewStatus(e.target.value)}>
@@ -167,7 +168,7 @@ function ComplaintDetail() {
           </div>
         )}
 
-        {/* 🚀 Progress Tracker */}
+        {/* Progress Tracker */}
         <div className={styles.trackerContainer}>
           {statusSteps.map((step, index) => (
             <div key={index} className={styles.step}>
@@ -178,8 +179,8 @@ function ComplaintDetail() {
           ))}
         </div>
 
-        {/* 🚀 Activity Log */}
-          <h3 className={styles.h3}>Activity Log</h3>
+        {/* Activity Log */}
+        <h3 className={styles.h3}>Activity Log</h3>
         <div className={styles.activityLogContainer}>
           {complaint.activityLog.length === 0 ? (
             <p>No activity recorded yet.</p>
@@ -197,8 +198,6 @@ function ComplaintDetail() {
             </ul>
           )}
         </div>
-
-
 
         {/* Back Button */}
         <button className={styles.backButton} onClick={() => router.push("/complaints")}>

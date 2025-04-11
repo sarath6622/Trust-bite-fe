@@ -112,7 +112,7 @@ export default function Header() {
             {userRole === "FoodSafetyOfficeUser" && ( <li><Link href="/complaints/manage" className={pathname === "/complaints/manage" ? styles.active : ""}>Manage Complaints</Link></li>)}
             <li><Link href="/complaints" className={pathname === "/complaints" ? styles.active : ""}>Complaints</Link></li>
             <li><Link href="/restaurants" className={pathname === "/restaurants" ? styles.active : ""}>Restaurants</Link></li>
-            {userRole === "RestaurantOwner" && ( <li><Link href="/dashboard/restaurantOwner" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Manage Restaurant</Link></li>)}
+            {userRole === "RestaurantOwner" && ( <li><Link href="/restaurants/manage" className={pathname === "/dashboard/restaurantOwner" ? styles.active : ""}>Manage Restaurant</Link></li>)}
 
         
             {/* Notifications */}
